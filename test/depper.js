@@ -134,7 +134,9 @@ tap.test('depper', function (test) {
         });
 
         d.on('finish', function () {
-            test.ok(rows.length); // todo: update this once twig returns the name of the file where the error occured
+            test.equal(rows.length, 1);
+            test.equal(rows[0].file, path.join(__dirname, '/fixtures/error/partial.twig'));
+            test.ok(rows[0].error);
 
             test.end();
         });

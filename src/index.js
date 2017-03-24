@@ -70,8 +70,17 @@ class Depper extends Transform {
                     }
                 }
             };
+            let template = null;
 
-            let template = self.compile(file);
+            try {
+                template = self.compile(file);
+            }
+            catch (err) {
+                throw({
+                    file: file,
+                    error: err
+                });
+            }
 
             template.tokens.forEach(function (token) {
                 processToken(token, template);
