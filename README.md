@@ -30,7 +30,7 @@ depper.on('error', function (error) {
     // do something on error
 });
 
-d.end(entry);
+depper.end(entry);
 ```
 
 ## Contributing
