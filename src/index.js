@@ -25,12 +25,15 @@ class Depper extends Transform {
             });
 
             let processToken = function (token, template) {
-                if (token.type == 'logic') {
+                if (token.type === 'logic') {
                     token = token.token;
 
                     switch (token.type) {
                         case 'Twig.logic.type.include':
-                        case 'Twig.logic.type.import': {
+                        case 'Twig.logic.type.import':
+                        case 'Twig.logic.type.extends':
+                        case 'Twig.logic.type.embed':
+                        case 'Twig.logic.type.use': {
                             token.stack.forEach(function (stackEntry) {
                                 switch (stackEntry.type) {
                                     case 'Twig.expression.type.string':

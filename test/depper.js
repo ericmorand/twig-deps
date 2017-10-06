@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 tap.test('depper', function (test) {
-    test.plan(8);
+    test.plan(11);
 
     test.test('should handle Twig.logic.type.include', function (test) {
         let d = new Depper();
@@ -186,6 +186,72 @@ tap.test('depper', function (test) {
             test.same(rows.sort(), [
                 path.join(__dirname, '/fixtures/circular/entry.twig'),
                 path.join(__dirname, '/fixtures/circular/partial.twig')
+            ].sort());
+
+            test.end();
+        });
+
+        d.end(entry);
+    });
+
+    test.test('should handle Twig.logic.type.extends', function (test) {
+        let d = new Depper();
+        let entry = path.join(__dirname, '/fixtures/extends/entry.twig');
+
+        let rows = [];
+
+        d.on('data', function (row) {
+            rows.push(row);
+        });
+
+        d.on('finish', function () {
+            test.same(rows.sort(), [
+                path.join(__dirname, '/fixtures/extends/entry.twig'),
+                path.join(__dirname, '/fixtures/extends/import.twig')
+            ].sort());
+
+            test.end();
+        });
+
+        d.end(entry);
+    });
+
+    test.test('should handle Twig.logic.type.embed', function (test) {
+        let d = new Depper();
+        let entry = path.join(__dirname, '/fixtures/embed/entry.twig');
+
+        let rows = [];
+
+        d.on('data', function (row) {
+            rows.push(row);
+        });
+
+        d.on('finish', function () {
+            test.same(rows.sort(), [
+                path.join(__dirname, '/fixtures/embed/entry.twig'),
+                path.join(__dirname, '/fixtures/embed/import.twig')
+            ].sort());
+
+            test.end();
+        });
+
+        d.end(entry);
+    });
+
+    test.test('should handle Twig.logic.type.use', function (test) {
+        let d = new Depper();
+        let entry = path.join(__dirname, '/fixtures/use/entry.twig');
+
+        let rows = [];
+
+        d.on('data', function (row) {
+            rows.push(row);
+        });
+
+        d.on('finish', function () {
+            test.same(rows.sort(), [
+                path.join(__dirname, '/fixtures/use/entry.twig'),
+                path.join(__dirname, '/fixtures/use/import.twig')
             ].sort());
 
             test.end();
