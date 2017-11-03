@@ -65,7 +65,8 @@ class Depper extends Transform {
                         }
                         case 'Twig.logic.type.for':
                         case 'Twig.logic.type.macro':
-                        case 'Twig.logic.type.setcapture': {
+                        case 'Twig.logic.type.setcapture':
+                        case 'Twig.logic.type.block': {
                             token.output.forEach(function (token) {
                                 processToken(token, template);
                             });
