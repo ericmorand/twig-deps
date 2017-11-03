@@ -63,6 +63,7 @@ class Depper extends Transform {
 
                             break;
                         }
+                        case 'Twig.logic.type.if':
                         case 'Twig.logic.type.for':
                         case 'Twig.logic.type.macro':
                         case 'Twig.logic.type.setcapture': {

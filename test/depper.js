@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 tap.test('depper', function (test) {
-    test.plan(11);
+    test.plan(12);
 
     test.test('should handle Twig.logic.type.include', function (test) {
         let d = new Depper();
@@ -252,6 +252,28 @@ tap.test('depper', function (test) {
             test.same(rows.sort(), [
                 path.join(__dirname, '/fixtures/use/entry.twig'),
                 path.join(__dirname, '/fixtures/use/import.twig')
+            ].sort());
+
+            test.end();
+        });
+
+        d.end(entry);
+    });
+
+    test.test('should handle Twig.logic.type.if', function (test) {
+        let d = new Depper();
+        let entry = path.join(__dirname, '/fixtures/if/entry.twig');
+
+        let rows = [];
+
+        d.on('data', function (row) {
+            rows.push(row);
+        });
+
+        d.on('finish', function () {
+            test.same(rows.sort(), [
+                path.join(__dirname, '/fixtures/if/entry.twig'),
+                path.join(__dirname, '/fixtures/if/partial.twig')
             ].sort());
 
             test.end();
