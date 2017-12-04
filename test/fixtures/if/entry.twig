@@ -1,3 +1,7 @@
 {% if foo %}
-    {% include './partial.twig' %}
+    {% include './if.twig' %}
+{% elseif bar %}
+    {% include './elseif.twig' %}
+{% else %}
+    {% include './else.twig' %}
 {% endif %}
