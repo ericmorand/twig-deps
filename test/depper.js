@@ -271,7 +271,9 @@ tap.test('depper', function (test) {
         d.on('finish', function () {
             test.same(rows.sort(), [
                 path.join(__dirname, '/fixtures/if/entry.twig'),
-                path.join(__dirname, '/fixtures/if/partial.twig')
+                path.join(__dirname, '/fixtures/if/if.twig'),
+                path.join(__dirname, '/fixtures/if/elseif.twig'),
+                path.join(__dirname, '/fixtures/if/else.twig')
             ].sort());
 
             test.end();
