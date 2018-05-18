@@ -83,10 +83,14 @@ class Depper extends Transform {
                 template = self.compile(file);
             }
             catch (err) {
-                throw({
+                self.emit('error', {
                     file: file,
                     error: err
                 });
+
+                template = {
+                    tokens: []
+                };
             }
 
             template.tokens.forEach(function (token) {
@@ -94,14 +98,9 @@ class Depper extends Transform {
             });
         };
 
-        try {
-            resolve(chunk);
+        resolve(chunk);
 
-            callback();
-        }
-        catch (err) {
-            callback(err);
-        }
+        callback();
     }
 
     compile(file) {
