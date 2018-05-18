@@ -126,15 +126,26 @@ tap.test('depper', function (test) {
         let entry = path.join(__dirname, '/fixtures/error/entry.twig');
 
         let rows = [];
+        let errors = [];
+
+        d.on('data', function (row) {
+            rows.push(row);
+        });
 
         d.on('error', function (err) {
-            rows.push(err);
+            errors.push(err);
         });
 
         d.on('finish', function () {
-            test.equal(rows.length, 1);
-            test.equal(rows[0].file, path.join(__dirname, '/fixtures/error/partial.twig'));
-            test.ok(rows[0].error);
+            test.equal(errors.length, 1);
+            test.equal(errors[0].file, path.join(__dirname, '/fixtures/error/partial.twig'));
+            test.ok(errors[0].error);
+
+            test.same(rows.sort(), [
+                path.join(__dirname, '/fixtures/error/entry.twig'),
+                path.join(__dirname, '/fixtures/error/partial.twig'),
+                path.join(__dirname, '/fixtures/error/other.twig')
+            ].sort());
 
             test.end();
         });
